@@ -7,7 +7,7 @@ string ReadTXT(char* addr) {
 	infile.open(addr);
 	//assert(infile.is_open());
 	if (!infile.is_open()) {
-		cout << "文件打开失败。" << endl;
+		cout << "读取时文件打开失败。" << endl;
 		exit(0);
 	}
 
@@ -20,7 +20,18 @@ string ReadTXT(char* addr) {
 	return s;
 }
 
-unordered_map<string, int> GetWordFrequency(string text) {
+void PrintTXT(char* addr, const double& val) {
+	ofstream outfile;
+	outfile.open(addr);
+	if (!outfile.is_open()) {
+		cout << "写入时文件打开失败。" << endl;
+		exit(0);
+	}
+
+	outfile << fixed << setprecision(2) << val << endl;
+}
+
+unordered_map<string, int> GetWordFrequency(const string& text) {
 	unordered_map<string, int> wordTable;
 	for (int i = 0; size_t(i) + 1 < text.size(); i++) {
 		string word = text.substr(i, 3); //bigram分词
@@ -29,7 +40,7 @@ unordered_map<string, int> GetWordFrequency(string text) {
 	return wordTable;
 }
 
-double GetSimilarity(vector<int>& vec1, vector<int>& vec2) {
+double GetSimilarity(const vector<int>& vec1,const vector<int>& vec2) {
 	const size_t n = vec1.size();
 	double a = 0, b = 0, c = 0;
 	for (int i = 0; i < n; i++) {
@@ -48,10 +59,10 @@ int main(int argc, char* argv[]) {
 
 	string text1 = ReadTXT(argv[1]);
 	string text2 = ReadTXT(argv[2]);
-	
+
 	unordered_map<string, int> wordTable1 = GetWordFrequency(text1);
 	unordered_map<string, int> wordTable2 = GetWordFrequency(text2);
-	
+
 	unordered_set<string> totalWords;
 	for (auto temp : wordTable1) {
 		totalWords.insert(temp.first);
@@ -64,7 +75,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	double similarity = GetSimilarity(vec1, vec2);
-	cout << similarity << endl;
+	PrintTXT(argv[3], similarity);
+	cout << "答案已输出至文件。" << endl;
 
 	return 0;
 }
