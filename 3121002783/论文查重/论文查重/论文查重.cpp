@@ -22,20 +22,20 @@ string ReadTXT(char* addr) {
 
 unordered_map<string, int> GetWordFrequency(string text) {
 	unordered_map<string, int> wordTable;
-	for (int i = 0; i + 1 < text.size(); i++) {
-		string word = text.substr(i, 2); //bigram分词
+	for (int i = 0; size_t(i) + 1 < text.size(); i++) {
+		string word = text.substr(i, 3); //bigram分词
 		wordTable[word]++;
 	}
 	return wordTable;
 }
 
 double GetSimilarity(vector<int>& vec1, vector<int>& vec2) {
-	const int n = vec1.size();
+	const size_t n = vec1.size();
 	double a = 0, b = 0, c = 0;
 	for (int i = 0; i < n; i++) {
-		a += vec1[i] * vec2[i];
-		b += vec1[i] * vec1[i];
-		c += vec2[i] * vec2[i];
+		a += 1LL * vec1[i] * vec2[i];
+		b += 1LL * vec1[i] * vec1[i];
+		c += 1LL * vec2[i] * vec2[i];
 	}
 
 	if (b == 0 || c == 0) return 0;
