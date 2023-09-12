@@ -20,13 +20,35 @@ string ReadTXT(char* addr) {
 	return s;
 }
 
+unordered_map<string, int> GetWordFrequency(string text) {
+	unordered_map<string, int> wordTable;
+	for (int i = 0; i + 1 < text.size(); i++) {
+		string word = text.substr(i, 2); //bigram分词
+		wordTable[word]++;
+	}
+	return wordTable;
+}
+
 int main(int argc, char* argv[]) {
 
-	string orig = ReadTXT(argv[1]);
-	string orig_add = ReadTXT(argv[2]);
+	string text1 = ReadTXT(argv[1]);
+	string text2 = ReadTXT(argv[2]);
+	
+	unordered_map<string, int> wordTable1 = GetWordFrequency(text1);
+	unordered_map<string, int> wordTable2 = GetWordFrequency(text2);
+	
+	unordered_set<string> totalWords;
+	for (auto temp : wordTable1) {
+		totalWords.insert(temp.first);
+	}
 
-	cout << orig << endl;
-	cout << orig_add << endl;
+	vector<int> vec1, vec2;
+	for (auto word : totalWords) {
+		vec1.push_back(wordTable1[word]);
+		vec2.push_back(wordTable2[word]);
+	}
+
+	double similarity = 0;
 
 	return 0;
 }
