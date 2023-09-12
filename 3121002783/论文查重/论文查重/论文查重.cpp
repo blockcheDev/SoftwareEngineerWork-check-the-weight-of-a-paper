@@ -29,6 +29,21 @@ unordered_map<string, int> GetWordFrequency(string text) {
 	return wordTable;
 }
 
+double GetSimilarity(vector<int>& vec1, vector<int>& vec2) {
+	const int n = vec1.size();
+	double a = 0, b = 0, c = 0;
+	for (int i = 0; i < n; i++) {
+		a += vec1[i] * vec2[i];
+		b += vec1[i] * vec1[i];
+		c += vec2[i] * vec2[i];
+	}
+
+	if (b == 0 || c == 0) return 0;
+
+	double similarity = a / (sqrt(b) * sqrt(c));
+	return similarity;
+}
+
 int main(int argc, char* argv[]) {
 
 	string text1 = ReadTXT(argv[1]);
@@ -48,7 +63,8 @@ int main(int argc, char* argv[]) {
 		vec2.push_back(wordTable2[word]);
 	}
 
-	double similarity = 0;
+	double similarity = GetSimilarity(vec1, vec2);
+	cout << similarity << endl;
 
 	return 0;
 }
