@@ -33,14 +33,14 @@ void PrintTXT(char* addr, const double& val) {
 
 unordered_map<string, int> GetWordFrequency(const string& text) {
 	unordered_map<string, int> wordTable;
-	for (int i = 0; size_t(i) + 1 < text.size(); i++) {
-		string word = text.substr(i, 3); //bigram分词
+	for (int i = 0; size_t(i) + 5 < text.size(); i++) {
+		string word = text.substr(i, 6); //n-gram分词
 		wordTable[word]++;
 	}
 	return wordTable;
 }
 
-double GetSimilarity(const vector<int>& vec1,const vector<int>& vec2) {
+double GetSimilarity(const vector<int>& vec1, const vector<int>& vec2) {
 	const size_t n = vec1.size();
 	double a = 0, b = 0, c = 0;
 	for (int i = 0; i < n; i++) {
@@ -65,6 +65,9 @@ int main(int argc, char* argv[]) {
 
 	unordered_set<string> totalWords;
 	for (auto temp : wordTable1) {
+		totalWords.insert(temp.first);
+	}
+	for (auto temp : wordTable2) {
 		totalWords.insert(temp.first);
 	}
 
