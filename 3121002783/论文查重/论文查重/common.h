@@ -5,5 +5,7 @@
 #include <fstream>
 #include <cassert>
 #include <unordered_map>
+#include <map>
+#include <set>
 #include <unordered_set>
 #include <iomanip>

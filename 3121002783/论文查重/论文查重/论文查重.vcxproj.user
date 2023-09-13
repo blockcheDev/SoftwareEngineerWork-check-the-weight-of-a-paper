@@ -5,7 +5,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>D:\Sundries\Test\测试文本\orig.txt D:\Sundries\Test\测试文本\orig_0.8_add.txt D:\Sundries\Test\测试文本\answer.txt</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>"D:\Sundries\Work\Test\TestText\orig.txt" "D:\Sundries\Work\Test\TestText\orig_0.8_add.txt" "D:\Sundries\Work\Test\TestText\answer.txt"</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

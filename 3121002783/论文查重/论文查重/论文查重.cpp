@@ -31,8 +31,8 @@ void PrintTXT(char* addr, const double& val) {
 	outfile << fixed << setprecision(2) << val << endl;
 }
 
-unordered_map<string, int> GetWordFrequency(const string& text) {
-	unordered_map<string, int> wordTable;
+map<string, int> GetWordFrequency(const string& text) {
+	map<string, int> wordTable;
 	for (int i = 0; size_t(i) + 5 < text.size(); i++) {
 		string word = text.substr(i, 6); //n-gram分词
 		wordTable[word]++;
@@ -60,10 +60,10 @@ int main(int argc, char* argv[]) {
 	string text1 = ReadTXT(argv[1]);
 	string text2 = ReadTXT(argv[2]);
 
-	unordered_map<string, int> wordTable1 = GetWordFrequency(text1);
-	unordered_map<string, int> wordTable2 = GetWordFrequency(text2);
+	map<string, int> wordTable1 = GetWordFrequency(text1);
+	map<string, int> wordTable2 = GetWordFrequency(text2);
 
-	unordered_set<string> totalWords;
+	set<string> totalWords;
 	for (auto temp : wordTable1) {
 		totalWords.insert(temp.first);
 	}
