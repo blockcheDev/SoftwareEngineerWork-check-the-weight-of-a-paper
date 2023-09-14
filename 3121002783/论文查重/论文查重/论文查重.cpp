@@ -2,7 +2,7 @@
 
 using namespace std;
 
-string ReadTXT(char* addr) {
+string ReadTXT(char* addr) { //从文件输入文本数据
 	ifstream infile;
 	infile.open(addr);
 	//assert(infile.is_open());
@@ -20,7 +20,7 @@ string ReadTXT(char* addr) {
 	return s;
 }
 
-void PrintTXT(char* addr, const double& val) {
+void PrintTXT(char* addr, const double& val) { //往文件输出答案
 	ofstream outfile;
 	outfile.open(addr);
 	if (!outfile.is_open()) {
@@ -28,10 +28,10 @@ void PrintTXT(char* addr, const double& val) {
 		exit(0);
 	}
 
-	outfile << fixed << setprecision(2) << val << endl;
+	outfile << fixed << setprecision(2) << val << endl; //精确到小数点后两位
 }
 
-map<string, int> GetWordFrequency(const string& text) {
+map<string, int> GetWordFrequency(const string& text) { //传入text文本，用n-gram算法分词，然后计算词频，返回一个map
 	map<string, int> wordTable;
 	for (int i = 0; size_t(i) + 5 < text.size(); i++) {
 		string word = text.substr(i, 6); //n-gram分词
@@ -40,7 +40,7 @@ map<string, int> GetWordFrequency(const string& text) {
 	return wordTable;
 }
 
-double GetSimilarity(const vector<int>& vec1, const vector<int>& vec2) {
+double GetSimilarity(const vector<int>& vec1, const vector<int>& vec2) {  //传入两个词向量vec，用余弦公式计算余弦相似度并返回结果
 	const size_t n = vec1.size();
 	double a = 0, b = 0, c = 0;
 	for (int i = 0; i < n; i++) {
@@ -49,7 +49,7 @@ double GetSimilarity(const vector<int>& vec1, const vector<int>& vec2) {
 		c += 1LL * vec2[i] * vec2[i];
 	}
 
-	if (b == 0 || c == 0) return 0;
+	if (b == 0 || c == 0) return 0;  //注意不能除0
 
 	double similarity = a / (sqrt(b) * sqrt(c));
 	return similarity;
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
 	map<string, int> wordTable1 = GetWordFrequency(text1);
 	map<string, int> wordTable2 = GetWordFrequency(text2);
 
-	set<string> totalWords;
+	set<string> totalWords;  //总词库
 	for (auto temp : wordTable1) {
 		totalWords.insert(temp.first);
 	}
@@ -71,13 +71,13 @@ int main(int argc, char* argv[]) {
 		totalWords.insert(temp.first);
 	}
 
-	vector<int> vec1, vec2;
+	vector<int> vec1, vec2;  //获取两个文本的词频向量
 	for (auto word : totalWords) {
 		vec1.push_back(wordTable1[word]);
 		vec2.push_back(wordTable2[word]);
 	}
 
-	double similarity = GetSimilarity(vec1, vec2);
+	double similarity = GetSimilarity(vec1, vec2); //获取结果
 	PrintTXT(argv[3], similarity);
 	cout << "答案已输出至文件。" << endl;
 
