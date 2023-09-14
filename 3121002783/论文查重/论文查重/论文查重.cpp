@@ -29,6 +29,7 @@ void PrintTXT(char* addr, const double& val) { //往文件输出答案
 	}
 
 	outfile << fixed << setprecision(2) << val << endl; //精确到小数点后两位
+	outfile.close();
 }
 
 map<string, int> GetWordFrequency(const string& text) { //传入text文本，用n-gram算法分词，然后计算词频，返回一个map
