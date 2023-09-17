@@ -7,13 +7,19 @@
 
 # 模块接口的设计与实现过程
 
+## 模块接口的设计与说明
+
 | 函数                                                         | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| string ReadTXT(char* addr)                                   | 打开地址为addr的文本，读取内容并用string返回                 |
-| void PrintTXT(char* addr, const double& val)                 | 打开地址为addr的文本，将val值输出至文件                      |
-| map<string, int> GetWordFrequency(const string& text)        | 传入text文本，用n-gram算法分词，然后计算词频，返回一个map    |
-| double GetSimilarity(const vector<int>& vec1,const vector<int>& vec2) | 传入两个词向量vec，用余弦公式计算余弦相似度并返回            |
-| int main(int argc, char* argv[])                             | 用命令行参数按顺序将[原文文件] [抄袭版论文的文件] [答案文件]的路径传入，然后主函数内会依次调用各个功能函数完成论文查重，并将文本相似度输出至答案文件 |
+| `string ReadTXT(char* addr)`                                 | 打开地址为addr的文本，读取内容并用string返回                 |
+| `void PrintTXT(char* addr, const double& val)`               | 打开地址为addr的文本，将val值输出至文件                      |
+| `map<string, int> GetWordFrequency(const string& text)`      | 传入text文本，用n-gram算法分词，然后计算词频，返回一个map    |
+| `double GetSimilarity(const vector<int>& vec1,const vector<int>& vec2)` | 传入两个词向量vec，用余弦公式计算余弦相似度并返回            |
+| `int main(int argc, char* argv[])`                           | 用命令行参数按顺序将[原文文件] [抄袭版论文的文件] [答案文件]的路径传入，然后主函数内会依次调用各个功能函数完成论文查重，并将文本相似度输出至答案文件 |
+
+## 程序流程图
+
+![image-20230918000320823](https://img2023.cnblogs.com/blog/2646249/202309/2646249-20230918000322467-1609605759.png)
 
 # 模块接口部分的性能改进
 
@@ -21,7 +27,7 @@
 
 ![image-20230913153056770](https://img2023.cnblogs.com/blog/2646249/202309/2646249-20230913153057774-663712105.png)
 
-可以看到，对于整个程序而言，独占时间最多的用户函数是 GetWordFrequency()，这也不难解释，因为这是对整篇文本进行分词操作，并将每个词语存入散列表的重要函数。
+可以看到，对于整个程序而言，独占时间最多的用户函数是 `GetWordFrequency()`，这也不难解释，因为这是对整篇文本进行分词操作，并将每个词语存入散列表的重要函数。
 
 对于一个长度为 n 的文本，使用参数为 k 的 n-gram 分词操作，这个函数的整体复杂度为 $O(k*n*logn)$，一般 n-gram 的参数会设为6以下，所以复杂度可以视为 $O(n*logn)$，这个 log 是使用散列表时元素冲突造成的重复查询而均摊下来的复杂度。
 
@@ -31,9 +37,15 @@
 
 由于在当前程序使用散列表的插入操作较多，而一但发生冲突，将会使单次操作复杂度从 $O(1)$ 降为 $O(n)$。
 
-所以可以使用底层为红黑树的 std::map 代替 std::unordered_map，std::map 的单次插入复杂度是稳定 $O(logn)$ 的，在极端状况下可以提升程序性能和稳定性。
+所以可以使用底层为红黑树的 `std::map` 代替 `std::unordered_map`，`std::map` 的单次插入复杂度是稳定 $O(logn)$ 的，在极端状况下可以提升程序性能和稳定性。
 
 # 模块部分单元测试展示
+
+## VS 单元测试
+
+![image-20230918005104474](https://img2023.cnblogs.com/blog/2646249/202309/2646249-20230918005106106-802512305.png)
+
+单元测试可以通过。
 
 ## Test1
 
@@ -64,11 +76,17 @@
 
 # 模块部分异常处理说明
 
-## GetSimilarity() 函数异常处理
+## `GetSimilarity()` 函数异常处理
 
 ![image-20230913161645252](https://img2023.cnblogs.com/blog/2646249/202309/2646249-20230913161644880-1674072742.png)
 
 没有加上第52行代码前，如果 b 或 c 的值为0，也就是两个文本丝毫不相关，程序会进行除0操作，总所周知，数学上除0是没有意义的，于是程序报错了。
+
+## `ReadTXT()` 和 `PrintTXT()`  函数异常处理
+
+![image-20230917235522471](https://img2023.cnblogs.com/blog/2646249/202309/2646249-20230917235527458-534940777.png)
+
+![image-20230917235539195](https://img2023.cnblogs.com/blog/2646249/202309/2646249-20230917235540714-1860952640.png)
 
 # 附录
 
@@ -86,9 +104,9 @@
 | · Design                                | · 具体设计                              | 120              | 30               |
 | · Coding                                | · 具体编码                              | 120              | 60               |
 | · Code Review                           | · 代码复审                              | 30               | 30               |
-| · Test                                  | · 测试（自我测试，修改代码，提交修改）  | 120              | 180              |
+| · Test                                  | · 测试（自我测试，修改代码，提交修改）  | 120              | 480              |
 | Reporting                               | 报告                                    | 270              | 330              |
 | · Test Repor                            | · 测试报告                              | 120              | 240              |
 | · Size Measurement                      | · 计算工作量                            | 30               | 30               |
 | · Postmortem & Process Improvement Plan | · 事后总结, 并提出过程改进计划          | 120              | 60               |
-|                                         | · 合计                                  | 750              | 725              |
+|                                         | · 合计                                  | 750              | 1025             |
