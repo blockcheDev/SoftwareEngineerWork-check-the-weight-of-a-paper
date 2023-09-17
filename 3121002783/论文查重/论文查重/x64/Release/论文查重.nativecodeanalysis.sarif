@@ -1,0 +1,43 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.34.31935.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///d:/onedrive - mail2.gdut.edu.cn/studymaterials/大三/软件工程/软件工程作业/作业2/softwareengineerwork-check-the-weight-of-a-paper/3121002783/论文查重/论文查重/论文查重.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "b7f23c6a67cdc8097d94aa6d16004dfee106d26bb01ee56713ce4260d63fc07a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///d:/onedrive - mail2.gdut.edu.cn/studymaterials/大三/软件工程/软件工程作业/作业2/softwareengineerwork-check-the-weight-of-a-paper/3121002783/论文查重/论文查重/common.h"
+          },
+          "hashes": {
+            "sha-256": "ebf978173737659ac14b89d0bdae1e2d4b6f4df0468e0af255181b01eeea5a25"
+          }
+        }
+      ]
+    }
+  ]
+}

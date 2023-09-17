@@ -58,7 +58,7 @@ double GetSimilarity(const vector<int>& vec1, const vector<int>& vec2) {  //传�
 
 int main(int argc, char* argv[]) {
 
-	string text1 = ReadTXT(argv[1]);
+	string text1 = ReadTXT(argv[1]); //输入文本内容
 	string text2 = ReadTXT(argv[2]);
 
 	map<string, int> wordTable1 = GetWordFrequency(text1);

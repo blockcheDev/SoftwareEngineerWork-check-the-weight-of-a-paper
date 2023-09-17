@@ -24,4 +24,7 @@
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Release\论文查重.obj" />
+  </ItemGroup>
 </Project>
